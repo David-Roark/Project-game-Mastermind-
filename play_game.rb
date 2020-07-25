@@ -1,11 +1,11 @@
 load 'lib_game.rb'
 
-puts "Wellcome to Mastermind :D"
+puts 'Wellcome to Mastermind :D'
 puts "Let's play"
 
 # Set up
 answer = ''
-while answer == '' do
+while answer == ''
   puts "Would you like to set auto secret code? (Please type only 'yes' or 'no')"
   answer = gets.chomp
   if answer.downcase == 'yes'
@@ -25,14 +25,15 @@ puts
 # Play area
 
 puts "Let's play now, you have 12 times for choose."
-puts "~~0~0~0~~".center(44)
+puts '~~0~0~0~~'.center(44)
 puts "Your Box color: #{player.box_color}"
-turn = 1
-while(turn <= 12) do
 
+turn = 1
+while turn <= 12
   puts "Turn: #{turn}/12"
   print "Type the code that you think it right(type 'exit' if you want exit), secret code have #{player.secret_code_size} color(s): "
   player_choose = gets.chomp.downcase
+
   if player_choose == 'exit'
     puts
     puts "The secret code is: #{player.secret_code.join(' ')}. See you again!"
@@ -44,11 +45,11 @@ while(turn <= 12) do
     ncp = player.number_correct_position(player_choose)
 
     if nrc == player.secret_code_size && nrc == ncp
-      puts "+========================================================+"
-      puts "+ YOU ARE THE CHAMPION!!! ~~~~ match the secret code ~~~ +"
-      puts "+ Secret code: #{player.secret_code.join(' ')}".ljust(57) + "+"
-      puts "+ You won after #{turn} round".ljust(57) + "+"
-      puts "+========================================================+"
+      puts '+========================================================+'
+      puts '+ YOU ARE THE CHAMPION!!! ~~~~ match the secret code ~~~ +'
+      puts "+ Secret code: #{player.secret_code.join(' ')}".ljust(57) + '+'
+      puts "+ You won after #{turn} round".ljust(57) + '+'
+      puts '+========================================================+'
       break
     else
       player.table_answer(player_choose, nrc, ncp)
@@ -62,4 +63,3 @@ while(turn <= 12) do
   end
 
 end
-
