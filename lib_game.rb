@@ -1,10 +1,9 @@
 class SecretCode
-
-  @@BOX_COLOR = { 0=>'black', 1=>'white', 2=>'green', 3=>'red', 4=>'purple', 5=>'yellow', 6=>'blue', 7=>'brown', 8=>'pink', 9=>'gray' }
+  @@BOX_COLOR = { 0 => 'black', 1 => 'white', 2 => 'green', 3 => 'red', 4 => 'purple', 5 => 'yellow', 6 => 'blue', 7 => 'brown', 8 => 'pink', 9 => 'gray' }
 
   def self.random_secret_code
-    x = rand(5)
-    Array.new(4) { rand(x..x+4) }.map! { |num| @@BOX_COLOR[num] }
+    x = rand(6)
+    Array.new(4) { rand(x+1..x+4) }.map! { |num| @@BOX_COLOR[num] }
   end
 
   def same_size?(player_choose)
@@ -21,9 +20,8 @@ class SecretCode
 end
 
 class Player < SecretCode
-
   attr_reader :secret_code, :secret_code_size
-  
+
   @@TABLE_ANSWER = []
 
   def initialize(secret_code)
@@ -41,5 +39,19 @@ class Player < SecretCode
 
   def box_color
     @@BOX_COLOR.values.union(@secret_code).shuffle
+  end
+end
+
+class PlayerAI < SecretCode
+
+  def initialize(secret_code)
+    @secret_code = secret_code
+    @ai_answer = []
+  end
+
+  def save_ai_answer
+    ai_code = SecretCode.random_secret_code
+    ai_code.zip(@secret_code).each.with_index{ |v, i| @ai_answer[i] = true if v[0] == v[1] }
+    @ai_answer
   end
 end
